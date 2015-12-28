@@ -1,0 +1,14 @@
+{
+  "name": "News-Service",
+  "version": "0.0.0",
+  "description": "News Service",
+  "main": "app.js",
+  "author": {
+    "name": "duy tuan",
+    "email": ""
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "mysql": "^2.10.0"
+  }
+}
