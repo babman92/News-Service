@@ -4,9 +4,16 @@ var fs = require('fs');
 var conn = require('../connection.js');
 conn.initConnectionToDB();
 
-var numberArticlePerPage = 2;
-app.get('/lists/:page', function(req, res){
-	var page = req.params.page;
+var numberArticlePerPage = 23;
+app.get('/api/article/lists', function(req, res){
+	// var data = { 
+	// 	status: true,
+	// 	message: 'Hello client'
+	// }
+	var page = req.param('page');
+	if (page==undefined) {
+		page = 1;
+	};
 	var startIndex = page * numberArticlePerPage ;
 	var sql = 'select * from article_list limit ' + startIndex +','+numberArticlePerPage;
 	conn.excuteQuery(sql, function(data){
@@ -14,6 +21,17 @@ app.get('/lists/:page', function(req, res){
 			data: data
 		}
 		res.end(JSON.stringify(articles));	
+	});
+});
+
+app.get('/api/article/detail', function(req, res){
+	var id = req.param('id');
+	if (id==undefined) {
+		id = 261;
+	};
+	var sql = 'select * from article_detail where article_id = ' + id;
+	conn.excuteQuery(sql, function(data){
+		res.end(JSON.stringify(data));
 	});
 });
 
